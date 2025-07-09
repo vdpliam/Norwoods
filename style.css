@@ -4,46 +4,75 @@ body {
   overflow-x: hidden;
   font-family: cursive;
 }
+.letter {
+  z-index: 10;
+  position: relative;
+  color: #800040;
+  background: rgba(255, 255, 255, 0.9);
+   padding: 30px;
+  margin: 100px auto 200px;
+  max-width: 600px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+}
 
 .flower-field {
-  position: relative;
-  height: 2000px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
   width: 100%;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .flower {
   position: absolute;
   width: 60px;
   height: 60px;
+  pointer-events: none;
   opacity: 0;
-  transform: scale(0);
-  transition: all 1s ease-out;
+  transform: scale(0.5);
+  transition: transform is cubic-bezier(0.25, 1.25, 0.5 , 1), opacity is ease;
 }
 
 .flower.bloomed {
   opacity: 1;
   transform: scale(1);
-  animation: sway 4s infinite ease-in-out alternate;
 }
 
 .petal {
   position: absolute;
-  width: 20px;
-  height: 30px;
-  background: radial-gradient(circle, #ff69b4 20%, #ff1493 80%);
-  border-radius: 50% 50% 0 0;
+  width: 24px;
+  height: 28px;
+  top: 50%;
+  left: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffc0cb 40%, #ff69b4 80%);
+  border-radius: 60% 60% 40% 40%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  opacity: 0.9;
   transform-origin: center bottom;
+  transform: translate(-50%, -100%) rotate(0deg);
+}
+.flower.bloomed.petal {
+  animation: bloomPetal 1s ease forwards;
 }
 
 .center {
   position: absolute;
   width: 20px;
   height: 20px;
-  background: gold;
+  background: radial-gradient(circle, #ffe066, #ffcc00);
   border-radius: 50%;
-  top: 20px;
-  left: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
 }
+
 
 .heart-container {
   position: fixed;
@@ -53,6 +82,7 @@ body {
   height: 100%;
   pointer-events: none;
   overflow: hidden;
+  z-index: 1;
 }
 
 .heart {
@@ -98,4 +128,10 @@ body {
 @keyframes sway {
   0% { transform: scale(1) rotate(-5deg); }
   100% { transform: scale(1.1) rotate(5deg); }
+}
+
+@keyframes bloomPetal {
+  0% { transform: scaleY(0.3); opacity: 0; }
+  60% { opacity: 0.8; }
+  100% { transform: scaleY(1); opacity: 0.9; }
 }
